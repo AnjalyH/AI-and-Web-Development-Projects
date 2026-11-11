@@ -1,0 +1,22 @@
+
+# Python virtual environments
+.venv/
+venv/
+
+# Environment variables and secrets
+.env
+.streamlit/secrets.toml
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Private documents and uploaded files
+data/
+
+# Generated vector stores
+*.faiss
+*.pkl
+
+.vscode/
+test_loader.py
