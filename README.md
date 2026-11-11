@@ -5,6 +5,7 @@ This repository contains three programming projects developed as part of an acad
 ## Projects
 
 ### 1. Login and Registration System
+
 A web-based authentication system that allows users to register and log in using their credentials.
 
 **Technologies:**
@@ -22,6 +23,7 @@ A web-based authentication system that allows users to register and log in using
 Folder: `Login-Registration/`
 
 ### 2. AI Document Assistant (LLM & RAG)
+
 An AI-powered application that uses Retrieval-Augmented Generation (RAG) to answer questions based on uploaded PDF documents.
 
 **Technologies:**
@@ -39,9 +41,13 @@ An AI-powered application that uses Retrieval-Augmented Generation (RAG) to answ
 - Vector storage and retrieval
 - AI-generated answers based on document content
 
+**Live Application:**  
+[Open AI Document Assistant](https://anjaly-ai-document-assistant.streamlit.app/)
+
 Folder: `AI-Document-Assistant/`
 
 ### 3. Website Summarizer
+
 A web application that accepts a website URL, extracts its content and generates a summary using an AI language model.
 
 **Technologies:**
@@ -55,6 +61,9 @@ A web application that accepts a website URL, extracts its content and generates
 - Webpage content extraction
 - AI-powered text summarization
 - Summary display
+
+**Live Application:**  
+[Open Website Summarizer](https://anjaly-website-summarizer.streamlit.app/)
 
 Folder: `Website-Summarizer/`
 
