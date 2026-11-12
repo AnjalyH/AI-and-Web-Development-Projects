@@ -42,7 +42,7 @@ An AI-powered application that uses Retrieval-Augmented Generation (RAG) to answ
 - AI-generated answers based on document content
 
 **Live Application:**  
-[Open AI Document Assistant](https://anjaly-ai-document-assistant.streamlit.app/)
+[Open AI Document Assistant](https://anjaly-ai-document-assist.streamlit.app/)
 
 Folder: `AI-Document-Assistant/`
 
@@ -63,7 +63,7 @@ A web application that accepts a website URL, extracts its content and generates
 - Summary display
 
 **Live Application:**  
-[Open Website Summarizer](https://anjaly-website-summarizer.streamlit.app/)
+[Open Website Summarizer](https://anjaly-ai-website-summarizer.streamlit.app/)
 
 Folder: `Website-Summarizer/`
 
