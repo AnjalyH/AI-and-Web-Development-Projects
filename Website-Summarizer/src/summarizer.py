@@ -21,7 +21,6 @@ def extract_website_text(url):
 
     soup = BeautifulSoup(response.text, "html.parser")
 
-    # Remove unnecessary HTML elements
     for element in soup([
         "script",
         "style",
@@ -32,13 +31,11 @@ def extract_website_text(url):
     ]):
         element.decompose()
 
-    # Extract website title
     if soup.title and soup.title.string:
         title = soup.title.string.strip()
     else:
         title = "Untitled Website"
 
-    # Extract readable website content
     website_text = soup.get_text(
         separator=" ",
         strip=True
@@ -47,7 +44,6 @@ def extract_website_text(url):
     if not website_text:
         raise ValueError("No readable text found on this website.")
 
-    # Limit content sent to Gemini
     website_text = website_text[:12000]
 
     return title, website_text
@@ -56,16 +52,13 @@ def extract_website_text(url):
 def summarize_website(url):
     """Extract website content and generate an AI summary."""
 
-    # Step 1: Extract website content
     title, content = extract_website_text(url)
 
-    # Step 2: Initialize Gemini
     llm = ChatGoogleGenerativeAI(
         model="gemini-3.8-flash",
         temperature=0.3
     )
 
-    # Step 3: Create the prompt
     prompt = f"""
     Summarize the following website content in simple language.
 
@@ -80,11 +73,7 @@ def summarize_website(url):
     Website content:
     {content}
     """
-
-    # Step 4: Get response from Gemini
     response = llm.invoke(prompt)
-
-    # Step 5: Convert response into plain text
     raw_summary = response.content
 
     if isinstance(raw_summary, str):

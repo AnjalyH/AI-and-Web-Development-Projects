@@ -2,4 +2,7 @@
 node_modules/
 .env
 legalconnect.db
+*.db
 *.db-journal
+.venv/
+venv/

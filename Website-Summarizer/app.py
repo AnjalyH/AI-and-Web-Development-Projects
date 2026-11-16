@@ -4,7 +4,6 @@ import re
 from dotenv import load_dotenv
 from src.summarizer import summarize_website
 
-# Load API key from .env
 load_dotenv()
 
 st.set_page_config(

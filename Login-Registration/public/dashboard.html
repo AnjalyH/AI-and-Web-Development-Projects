@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | LegalConnect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-page">
+
+    <header class="dashboard-header">
+        <h2>LegalConnect</h2>
+
+        <button id="logoutButton" class="logout-button">
+            Logout
+        </button>
+    </header>
+
+    <main class="dashboard-container">
+
+        <section class="welcome-card">
+            <p class="welcome-label">YOUR PERSONAL DASHBOARD</p>
+
+            <h1 id="welcomeMessage">Welcome back!</h1>
+
+            <p class="welcome-description">
+                We're glad to have you here. Manage your LegalConnect
+                account from your dashboard.
+            </p>
+        </section>
+
+        <section class="profile-card">
+            <h2>Account Information</h2>
+
+            <div class="profile-details">
+                <div class="profile-item">
+                    <span>Full Name</span>
+                    <p id="userName">Loading...</p>
+                </div>
+
+                <div class="profile-item">
+                    <span>Email Address</span>
+                    <p id="userEmail">Loading...</p>
+                </div>
+
+                <div class="profile-item">
+                    <span>Account Role</span>
+                    <p id="userRole">Loading...</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        async function loadDashboard() {
+            try {
+                const response = await fetch("/api/me", {
+                    method: "GET",
+                    credentials: "include"
+                });
+                if (!response.ok) {
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                const data = await response.json();
+                const user = data.user;
+                document.getElementById("welcomeMessage").textContent =
+                    `Welcome back, ${user.full_name}!`;
+
+                document.getElementById("userName").textContent =
+                    user.full_name;
+
+                document.getElementById("userEmail").textContent =
+                    user.email;
+
+                document.getElementById("userRole").textContent =
+                    user.role;
+
+            } catch (error) {
+                console.error("Dashboard error:", error);
+                window.location.href = "login.html";
+            }
+        }
+        document.getElementById("logoutButton").addEventListener(
+            "click",
+            async function () {
+                try {
+                    const response = await fetch("/api/logout", {
+                        method: "POST",
+                        credentials: "include"
+                    });
+
+                    if (response.ok) {
+                        window.location.href = "login.html";
+                    } else {
+                        alert("Unable to log out. Please try again.");
+                    }
+
+                } catch (error) {
+                    console.error("Logout error:", error);
+                    alert("Something went wrong. Please try again.");
+                }
+            }
+        );
+        loadDashboard();
+    </script>
+
+</body>
+</html>
