@@ -1,14 +1,10 @@
 
 const path = require("path");
 const Database = require("better-sqlite3");
-
-// Use Render's persistent disk path when DB_PATH is configured.
-// Otherwise, use the local project directory.
 const dbPath = process.env.DB_PATH || path.join(__dirname, "legalconnect.db");
 
 const db = new Database(dbPath);
 
-// Users table
 db.exec(`
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -20,7 +16,6 @@ db.exec(`
     );
 `);
 
-// Sessions table
 db.exec(`
     CREATE TABLE IF NOT EXISTS sessions (
         sid TEXT PRIMARY KEY,

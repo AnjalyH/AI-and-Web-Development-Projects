@@ -1,9 +1,7 @@
 
 console.log("Welcome to LegalConnect!");
 
-// ==========================================
-// REGISTRATION
-// ==========================================
+
 
 const registerForm = document.getElementById("registerForm");
 
@@ -56,55 +54,25 @@ if (registerForm) {
 }
 
 
-// ==========================================
-// LOGIN ELEMENTS
-// ==========================================
 
 const loginForm = document.getElementById("loginForm");
 const loginMessage = document.getElementById("loginMessage");
 const logoutButton = document.getElementById("logoutButton");
 
 
-// ==========================================
-// CHECK EXISTING LOGIN SESSION
-// ==========================================
+
 
 async function checkLoginStatus() {
+
+    if (!loginForm) return;
+
     try {
         const response = await fetch("/api/me", {
             credentials: "include"
         });
 
         if (response.ok) {
-            const data = await response.json();
-
-            // Restore welcome message
-            if (loginMessage) {
-                loginMessage.textContent =
-                    "Welcome, " + data.user.full_name + "!";
-            }
-
-            // Show logout button
-            if (logoutButton) {
-                logoutButton.hidden = false;
-            }
-
-            // Hide login form
-            if (loginForm) {
-                loginForm.hidden = true;
-            }
-
-            console.log("User session restored:", data.user);
-
-        } else {
-            // User is not logged in
-            if (logoutButton) {
-                logoutButton.hidden = true;
-            }
-
-            if (loginForm) {
-                loginForm.hidden = false;
-            }
+            window.location.href = "dashboard.html";
         }
 
     } catch (error) {
@@ -112,14 +80,9 @@ async function checkLoginStatus() {
     }
 }
 
-
-// Check session when the page loads
 checkLoginStatus();
 
 
-// ==========================================
-// LOGIN
-// ==========================================
 
 if (loginForm) {
     loginForm.addEventListener("submit", async function(event) {
@@ -144,28 +107,20 @@ if (loginForm) {
             const data = await response.json();
 
             if (response.ok) {
-                if (loginMessage) {
-                    loginMessage.textContent =
-                        "Welcome, " + data.user.full_name + "!";
-                }
 
                 console.log("Logged in user:", data.user);
 
-                // Hide login form
-                loginForm.hidden = true;
-
-                // Show logout button
-                if (logoutButton) {
-                    logoutButton.hidden = false;
-                }
+                window.location.href = "dashboard.html";
 
             } else {
+
                 if (loginMessage) {
                     loginMessage.textContent = data.message;
                 }
             }
 
         } catch (error) {
+
             if (loginMessage) {
                 loginMessage.textContent =
                     "Unable to connect to the server.";
@@ -177,12 +132,10 @@ if (loginForm) {
 }
 
 
-// ==========================================
-// LOGOUT
-// ==========================================
 
 if (logoutButton) {
     logoutButton.addEventListener("click", async function() {
+
         try {
             const response = await fetch("/api/logout", {
                 method: "POST",
@@ -192,14 +145,13 @@ if (logoutButton) {
             const data = await response.json();
 
             if (response.ok) {
+
                 if (loginMessage) {
                     loginMessage.textContent = data.message;
                 }
 
-                // Hide logout button
                 logoutButton.hidden = true;
 
-                // Show login form again
                 if (loginForm) {
                     loginForm.hidden = false;
                     loginForm.reset();
