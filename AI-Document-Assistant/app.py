@@ -2,52 +2,77 @@
 import streamlit as st
 import tempfile
 import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+BASE_DIR = Path(__file__).resolve().parent
+ENV_PATH = BASE_DIR / ".env"
+
+load_dotenv(ENV_PATH, override=True)
+
 from src.pdf_loader import load_pdf
 from src.text_splitter import split_documents
 from src.embeddings import create_embeddings
 from src.vector_store import create_vector_store
 from src.rag_pipeline import get_answer
+
+
 st.set_page_config(
     page_title="AI Document Assistant",
     page_icon="📄",
     layout="centered"
 )
+
 st.title("📄 AI Document Assistant")
 st.write("Upload a PDF and ask questions about its contents.")
+
 uploaded_file = st.file_uploader(
     "Choose a PDF file",
     type=["pdf"]
 )
+
 if uploaded_file is not None:
     if st.button("Process Document"):
         temp_path = None
+
         try:
             with st.spinner("Processing your document..."):
+
                 with tempfile.NamedTemporaryFile(
                     delete=False,
                     suffix=".pdf"
                 ) as temp_file:
                     temp_file.write(uploaded_file.getvalue())
                     temp_path = temp_file.name
+
                 documents = load_pdf(temp_path)
                 chunks = split_documents(documents)
                 embeddings = create_embeddings()
+
                 vector_store = create_vector_store(
                     chunks,
                     embeddings
                 )
+
                 st.session_state.vector_store = vector_store
+
             st.success("Document processed successfully!")
+
         except Exception as e:
             st.error(f"Error processing document: {e}")
+
         finally:
             if temp_path and os.path.exists(temp_path):
                 os.remove(temp_path)
+
+
 if "vector_store" in st.session_state:
     st.subheader("Ask a Question")
+
     question = st.text_input(
         "Enter your question about the document:"
     )
+
     if st.button("Get Answer"):
         if question.strip():
             try:
@@ -56,9 +81,12 @@ if "vector_store" in st.session_state:
                         question,
                         st.session_state.vector_store
                     )
+
                 st.markdown("### Answer")
                 st.write(answer)
+
             except Exception as e:
                 st.error(f"Error generating answer: {e}")
+
         else:
             st.warning("Please enter a question.")
