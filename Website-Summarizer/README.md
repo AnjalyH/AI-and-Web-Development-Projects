@@ -57,3 +57,12 @@ The application fetches website content using Requests, extracts readable text u
 ## Note
 
 The application works with publicly accessible websites that provide readable HTML content.
+
+
+## 📸 Screenshots
+
+### Application Homepage
+![Homepage](screenshots/homepage.png)
+
+### Website Summary 
+![PDF Upload](screenshots/website-summary.png)

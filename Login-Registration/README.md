@@ -116,3 +116,17 @@ While building LegalConnect, I got practical experience with:
 This is an academic learning project. The current version focuses on user registration and authentication. Additional features such as lawyer dashboards, client dashboards and appointment booking can be developed in future versions.
 
 **Note:** The current Express session configuration uses the default MemoryStore, which is suitable for local development but should be replaced with a persistent session store before production deployment.
+
+## 📸 Screenshots
+
+### Application Homepage
+![Homepage](screenshots/homepage.png)
+
+### Registration Page
+![PDF Upload](screenshots/register-page.png)
+
+### Login Page
+![AI Answer](screenshots/login-page.png)
+
+### After Login - Dashboard 
+![AI Answer](screenshots/logged-in-dashboard.png)

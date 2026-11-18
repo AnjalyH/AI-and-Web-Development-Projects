@@ -114,3 +114,14 @@ Open the local URL displayed in your terminal to use the application.
 - A valid Google Gemini API key is required.
 - API usage is subject to Google Gemini rate limits and quotas.
 - The application is designed for PDF-based question answering.
+
+## 📸 Screenshots
+
+### Application Homepage
+![Homepage](screenshots/homepage.png)
+
+### PDF Upload
+![PDF Upload](screenshots/uploaded-pdf.png)
+
+### AI Question Answering
+![AI Answer](screenshots/ai-answer.png)
