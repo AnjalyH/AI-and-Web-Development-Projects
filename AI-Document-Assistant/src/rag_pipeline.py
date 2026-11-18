@@ -14,7 +14,7 @@ def get_answer(question, vector_store):
     )
 
     llm = ChatGoogleGenerativeAI(
-        model="gemini-3.8-flash",
+        model="gemini-3.5-flash-lite",
         temperature=0
     )
 
