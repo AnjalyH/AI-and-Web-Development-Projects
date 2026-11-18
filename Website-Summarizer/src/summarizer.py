@@ -1,7 +1,15 @@
 
+import os
+from pathlib import Path
+
 import requests
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
+
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(PROJECT_ROOT / ".env")
 
 
 def extract_website_text(url):
@@ -42,7 +50,9 @@ def extract_website_text(url):
     )
 
     if not website_text:
-        raise ValueError("No readable text found on this website.")
+        raise ValueError(
+            "No readable text found on this website."
+        )
 
     website_text = website_text[:12000]
 
@@ -52,12 +62,23 @@ def extract_website_text(url):
 def summarize_website(url):
     """Extract website content and generate an AI summary."""
 
+    api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
+
+    if not api_key:
+        raise ValueError(
+            "Gemini API key not found. "
+            "Please add GOOGLE_API_KEY to your .env file."
+        )
+
+  
     title, content = extract_website_text(url)
 
     llm = ChatGoogleGenerativeAI(
-        model="gemini-3.8-flash",
+        model="gemini-3.5-flash-lite",
+        google_api_key=api_key,
         temperature=0.3
     )
+
 
     prompt = f"""
     Summarize the following website content in simple language.
@@ -73,7 +94,9 @@ def summarize_website(url):
     Website content:
     {content}
     """
+
     response = llm.invoke(prompt)
+
     raw_summary = response.content
 
     if isinstance(raw_summary, str):
@@ -85,6 +108,7 @@ def summarize_website(url):
         for item in raw_summary:
             if isinstance(item, dict) and "text" in item:
                 text_parts.append(item["text"])
+
             elif isinstance(item, str):
                 text_parts.append(item)
 
