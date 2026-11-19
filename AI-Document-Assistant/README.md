@@ -123,5 +123,5 @@ Open the local URL displayed in your terminal to use the application.
 ### PDF Upload
 ![PDF Upload](screenshots/uploaded-pdf.png)
 
-### AI Question Answering
+### Answering Questions
 ![AI Answer](screenshots/ai-answer.png)
